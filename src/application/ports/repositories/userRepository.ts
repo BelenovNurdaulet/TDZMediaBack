@@ -15,4 +15,8 @@ export interface UserRepository {
     updateById(params: UserUpdateDto): Promise<PublicUser>;
 
     deleteById(params: { id: number }): Promise<void>;
+
+    findPrivateById(params:{ id: number }): Promise<User | null>;
+
+    updatePasswordHash(params: { id: number, passwordHash:string }): Promise<void>
 }

@@ -1,13 +1,14 @@
 import {AccessTokenPayload, RefreshTokenPayload, TokenManager} from "../../application/ports/security/tokenManager";
 import jwt from "jsonwebtoken";
+import {UnauthorizedError} from "../../shared/customError";
 
 
 export class JWTTokenManager implements TokenManager {
     constructor(
         private readonly config: {
             secret: string;
-            accessExpiresIn: number;  // "5m"
-            refreshExpiresIn: number; // "7d"
+            accessExpiresIn: number;  // 900
+            refreshExpiresIn: number; // 604800
         }) {}
 
     signAccessToken(params: AccessTokenPayload): string {
@@ -31,6 +32,11 @@ export class JWTTokenManager implements TokenManager {
     }
 
     verifyRefreshToken(token: string): RefreshTokenPayload {
-        return jwt.verify(token, this.config.secret) as RefreshTokenPayload;
+        const payload= jwt.verify(token, this.config.secret) as RefreshTokenPayload;
+
+        if (payload?.type !== "refresh_token") {
+            throw new UnauthorizedError("Вы не авторизованы");
+        }
+        return payload;
     }
 }

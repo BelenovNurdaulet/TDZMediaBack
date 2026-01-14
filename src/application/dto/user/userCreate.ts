@@ -14,10 +14,9 @@ export type UserUpdateDto = {
     id: number;
     data: Partial<{
         firstName: string;
-        lastName: string| null;
-        surName: string| null;
+        lastName: string | null;
+        surName: string | null;
         email: string;
-        passwordHash: string;
         skills: string[];
         role: Role;
     }>;

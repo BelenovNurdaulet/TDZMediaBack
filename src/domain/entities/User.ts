@@ -7,10 +7,15 @@ export type User = {
     surName: string | null;
     email: string;
     passwordHash: string;
-    skills: string[];
+    skills?: string[];
     role: Role;
     createdAt: Date;
     updatedAt: Date;
 };
 
 export type PublicUser = Omit<User, "passwordHash">;
+
+export const ROLE_CATALOG: Array<{ id: number; code: Role; name: string }> = [
+    { id: 1, code: "USER",  name: "Пользователь" },
+    { id: 2, code: "ADMIN", name: "Администратор" },
+];
