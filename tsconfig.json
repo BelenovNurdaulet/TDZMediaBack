@@ -10,7 +10,8 @@
     "skipLibCheck": true,
     
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["./node_modules/@types", "./src/shared"]
   },
   "include": ["src"]
 }
